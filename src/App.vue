@@ -30,8 +30,7 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-  <div class="q-pl-md">
-    <h1 class="text-h4 text-weight-bold">PrimeVue + vee-validate v4</h1>
+  <div class="q-pl-md">Vee-validate v4 ArrayFields Test</h1>
     <div class="q-mt-md q-gutter-md">
       <form @submit="onSubmit">
         <div class="field">
