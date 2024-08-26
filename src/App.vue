@@ -13,7 +13,7 @@ const schema = yup.object({
   ),
 });
 
-const { defineField, handleSubmit, resetForm, errors } = useForm({
+const { defineField, handleSubmit, resetForm, errors, setTouched, meta } = useForm({
   validationSchema: schema,
   initialValues: {
     arrayRow: [{ arrayField: '' }, { arrayField: 'dafdafg' }],
@@ -27,6 +27,10 @@ const [regularField] = defineField('regularField');
 const onSubmit = handleSubmit((values) => {
   console.log('Submitted with', values);
 });
+
+const doSetTouched = () => {
+  setTouched(true);
+};
 </script>
 
 <template>
@@ -51,7 +55,7 @@ const onSubmit = handleSubmit((values) => {
           <InputText
             v-model="fields[0].value.arrayField"
             :class="{
-              'p-invalid': errors[`arrayRow[0].arrayField`],
+              'p-invalid': meta.touched && errors[`arrayRow[0].arrayField`],
             }"
           />
           <small id="ro-help" class="p-error">
@@ -64,7 +68,7 @@ const onSubmit = handleSubmit((values) => {
           <InputText
             v-model="fields[1].value.arrayField"
             :class="{
-              'p-invalid': errors[`arrayRow[1].arrayField`],
+              'p-invalid': meta.touched && errors[`arrayRow[1].arrayField`],
             }"
           />
           <small id="r1-help" class="p-error">
@@ -81,7 +85,15 @@ const onSubmit = handleSubmit((values) => {
             @click="resetForm"
             class="p-button-secondary"
           />
+
+          <Button
+            label="Set Touched"
+            type="button"
+            @click="doSetTouched"
+            class="p-button-secondary"
+          />
         </div>
+        <div>touched: {{ meta.touched ? 'true' : 'false' }}</div>
       </form>
     </div>
   </div>
